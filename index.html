@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生成AIと教育のいま | Open EduTech Lab</title>
+<meta name="description" content="生成AIによる教材開発の民主化とその課題。現状・課題・これからやるべきことが分かるビジュアルサイト。教育関係者向け。">
+<meta property="og:title" content="生成AIと教育のいま | Open EduTech Lab">
+<meta property="og:description" content="作れることと、安全に使えることは別問題です。生成AIによる教材開発の民主化とその課題を解説。">
+<meta property="og:type" content="website">
+<link rel="icon" href="favicon.png" type="image/png">
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TGT2Y7KLF3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TGT2Y7KLF3');
+</script>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --ai:#1D6FD0;
+  --ai-lit:#4D9FFF;
+  --green:#0E8F63;
+  --green-lit:#10B981;
+  --ink:#1A1A1A;
+  --ink-2:#4A4A4A;
+  --ink-3:#888;
+  --paper:#FAF8F5;
+  --paper-2:#FFFFFF;
+  --paper-3:#F0EDE8;
+  --edge:rgba(0,0,0,.08);
+  --edge-2:rgba(0,0,0,.15);
+  --r-lg:20px;
+  --r-md:12px;
+  --r-sm:999px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --shell:min(1100px,92vw);
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Noto Sans JP",system-ui,sans-serif;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none;}
+h1,h2,h3{margin:0;}
+
+/* ── Hero ── */
+.hero{
+  position:relative;
+  overflow:hidden;
+  text-align:center;
+  background:#0F1A2E;
+}
+.hero-bg{
+  width:100%;display:block;
+  aspect-ratio:1504/667;
+  object-fit:cover;
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events:none;
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:80px;
+  background:linear-gradient(to bottom, transparent, rgba(15,26,46,0.3));
+  pointer-events:none;
+}
+.hero-inner{
+  position:absolute;
+  bottom:40px;left:50%;transform:translateX(-50%);
+  z-index:1;
+  width:min(800px,92vw);
+}
+.hero-label{
+  display:inline-block;
+  padding:6px 18px;
+  border-radius:var(--r-sm);
+  background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.2);
+  color:rgba(255,255,255,.8);
+  font-size:.78rem;
+  letter-spacing:.14em;
+  margin-bottom:28px;
+  font-weight:700;
+}
+.hero h1{
+  color:#fff;
+  font-size:clamp(2.2rem,6vw,4rem);
+  font-weight:900;
+  letter-spacing:.04em;
+  line-height:1.15;
+  margin-bottom:20px;
+}
+.hero h1 .accent-ai{color:var(--ai-lit);}
+.hero h1 .accent-green{color:#4DDBA2;}
+.hero-sub{
+  color:rgba(255,255,255,.75);
+  font-size:clamp(1rem,2.2vw,1.2rem);
+  font-weight:500;
+  max-width:560px;
+  margin:0 auto 16px;
+  line-height:1.7;
+}
+.hero-note{
+  color:rgba(255,255,255,.45);
+  font-size:.82rem;
+  margin:0 auto;
+}
+
+/* ── 共通レイアウト ── */
+.section-wrap{padding:80px 0;}
+.section-wrap.bg-white{background:var(--paper-2);}
+.section-wrap.bg-paper{background:var(--paper-3);}
+.section{width:var(--shell);margin:0 auto;}
+
+.section-label{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-size:.75rem;
+  font-weight:700;
+  letter-spacing:.14em;
+  color:var(--ai);
+  margin-bottom:10px;
+}
+.section-label::before{content:"";width:24px;height:2px;background:var(--ai);}
+.section-label.green{color:var(--green);}
+.section-label.green::before{background:var(--green);}
+
+.section-title{
+  font-size:clamp(1.6rem,4vw,2.5rem);
+  font-weight:900;
+  letter-spacing:.02em;
+  margin-bottom:10px;
+  line-height:1.25;
+}
+.section-desc{
+  color:var(--ink-2);
+  font-size:.95rem;
+  margin-bottom:52px;
+  max-width:640px;
+}
+
+/* ── フェードイン ── */
+.fade-in{
+  opacity:0;
+  transform:translateY(24px);
+  transition:opacity .6s var(--ease), transform .6s var(--ease);
+}
+.fade-in.visible{opacity:1;transform:none;}
+
+/* ── 現状カード ── */
+.state-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+  margin-top:0;
+}
+@media(max-width:900px){.state-grid{grid-template-columns:1fr;}}
+@media(min-width:901px) and (max-width:1100px){.state-grid{grid-template-columns:repeat(2,1fr);}}
+
+.state-card{
+  background:var(--paper-2);
+  border:1px solid var(--edge-2);
+  border-radius:var(--r-lg);
+  padding:32px 28px;
+  position:relative;
+  overflow:hidden;
+  transition:box-shadow .25s var(--ease), transform .25s var(--ease);
+}
+.state-card::before{
+  content:"";
+  position:absolute;
+  top:0;left:0;right:0;
+  height:4px;
+  background:linear-gradient(90deg, var(--ai), var(--green));
+}
+.state-card:hover{
+  box-shadow:0 12px 40px -12px rgba(29,111,208,.2);
+  transform:translateY(-4px);
+}
+.state-card-icon{
+  font-size:2rem;
+  margin-bottom:16px;
+  display:block;
+}
+.state-card h3{
+  font-size:1.05rem;
+  font-weight:700;
+  margin-bottom:12px;
+  color:var(--ink);
+}
+.state-card p{
+  font-size:.88rem;
+  color:var(--ink-2);
+  line-height:1.85;
+  margin:0;
+}
+.state-card .stat{
+  display:inline-block;
+  background:rgba(29,111,208,.08);
+  color:var(--ai);
+  font-weight:700;
+  font-size:.82rem;
+  padding:3px 10px;
+  border-radius:var(--r-sm);
+  margin-top:10px;
+}
+
+/* ── 課題グリッド ── */
+.risk-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+@media(max-width:700px){.risk-grid{grid-template-columns:1fr;}}
+
+.risk-card{
+  background:var(--paper-2);
+  border:1px solid var(--edge-2);
+  border-radius:var(--r-md);
+  padding:24px 24px 22px;
+  display:flex;
+  gap:18px;
+  align-items:flex-start;
+  transition:box-shadow .25s var(--ease), transform .25s var(--ease);
+}
+.risk-card:hover{
+  box-shadow:0 8px 28px -8px rgba(0,0,0,.13);
+  transform:translateY(-3px);
+}
+.risk-icon{
+  font-size:1.6rem;
+  flex-shrink:0;
+  line-height:1;
+  margin-top:2px;
+}
+.risk-body h3{
+  font-size:.95rem;
+  font-weight:700;
+  margin-bottom:6px;
+  color:var(--ink);
+}
+.risk-body p{
+  font-size:.85rem;
+  color:var(--ink-2);
+  line-height:1.8;
+  margin:0;
+}
+.risk-badge{
+  display:inline-block;
+  background:rgba(220,53,69,.08);
+  color:#C0392B;
+  font-weight:700;
+  font-size:.75rem;
+  padding:2px 8px;
+  border-radius:var(--r-sm);
+  margin-bottom:6px;
+}
+
+/* ── チェックリスト ── */
+.checklist{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+@media(max-width:900px){.checklist{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.checklist{grid-template-columns:1fr;}}
+
+.check-card{
+  background:var(--paper-2);
+  border:1px solid var(--edge-2);
+  border-radius:var(--r-md);
+  padding:24px 20px 20px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  transition:box-shadow .25s var(--ease), transform .25s var(--ease);
+  position:relative;
+}
+.check-card:hover{
+  box-shadow:0 8px 28px -8px rgba(14,143,99,.2);
+  transform:translateY(-3px);
+}
+.check-card::before{
+  content:"";
+  position:absolute;
+  top:0;left:0;
+  width:4px;height:100%;
+  background:var(--green);
+  border-radius:var(--r-md) 0 0 var(--r-md);
+}
+.check-num{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.check-num-badge{
+  width:32px;height:32px;
+  border-radius:50%;
+  background:var(--green);
+  color:#fff;
+  font-weight:900;
+  font-size:.85rem;
+  display:grid;
+  place-items:center;
+  flex-shrink:0;
+}
+.check-num-mark{
+  color:var(--green);
+  font-size:1rem;
+  font-weight:700;
+}
+.check-card h3{
+  font-size:.92rem;
+  font-weight:700;
+  color:var(--ink);
+  line-height:1.5;
+  margin:0;
+}
+.check-card p{
+  font-size:.82rem;
+  color:var(--ink-2);
+  line-height:1.8;
+  margin:0;
+}
+
+/* ── 付録ダウンロード ── */
+.dl-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+@media(max-width:680px){.dl-grid{grid-template-columns:1fr;}}
+
+.dl-card{
+  background:var(--paper-2);
+  border:1px solid var(--edge-2);
+  border-radius:var(--r-md);
+  padding:24px 24px 20px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  transition:box-shadow .25s var(--ease), transform .25s var(--ease);
+}
+.dl-card:hover{
+  box-shadow:0 8px 24px -8px rgba(0,0,0,.12);
+  transform:translateY(-3px);
+}
+.dl-card-label{
+  font-size:.72rem;
+  font-weight:700;
+  letter-spacing:.1em;
+  color:var(--ai);
+  text-transform:uppercase;
+}
+.dl-card h3{
+  font-size:1rem;
+  font-weight:700;
+  color:var(--ink);
+  margin:0;
+}
+.dl-card p{
+  font-size:.85rem;
+  color:var(--ink-2);
+  line-height:1.75;
+  margin:0;
+  flex:1;
+}
+.dl-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:11px 18px;
+  border-radius:var(--r-sm);
+  background:var(--ai);
+  color:#fff;
+  font-weight:700;
+  font-size:.84rem;
+  transition:filter .2s var(--ease), transform .2s;
+  white-space:nowrap;
+  align-self:flex-start;
+}
+.dl-btn:hover{filter:brightness(1.12);transform:translateY(-1px);}
+.dl-btn svg{width:15px;height:15px;flex-shrink:0;}
+
+/* ── フッター ── */
+footer{
+  background:#111827;
+  color:rgba(255,255,255,.55);
+  padding:48px 20px;
+  text-align:center;
+  font-size:.82rem;
+}
+footer strong{
+  color:#fff;
+  display:block;
+  margin-bottom:8px;
+  font-size:1rem;
+  font-weight:700;
+  letter-spacing:.06em;
+}
+footer a{color:var(--green-lit);}
+footer a:hover{text-decoration:underline;}
+.footer-links{
+  display:flex;
+  justify-content:center;
+  gap:24px;
+  margin-top:16px;
+  flex-wrap:wrap;
+}
+
+/* ── ヒーロー スクロールダウン矢印 ── */
+.hero-scroll{
+  position:absolute;
+  bottom:28px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  color:rgba(255,255,255,.3);
+  font-size:.68rem;
+  letter-spacing:.12em;
+  animation:bounce 2.4s ease-in-out infinite;
+}
+.hero-scroll svg{width:18px;height:18px;opacity:.5;}
+@keyframes bounce{
+  0%,100%{transform:translateX(-50%) translateY(0);}
+  50%{transform:translateX(-50%) translateY(6px);}
+}
+</style>
+</head>
+<body>
+
+<!-- ヒーロー -->
+<header class="hero">
+  <img class="hero-bg" src="top2.png" alt="生成AIと教育のいま"
+       onerror="this.style.display='none'">
+  <div class="hero-inner">
+    <span class="hero-label">教材開発の民主化とその課題</span>
+    <h1>生成<span class="accent-ai">AI</span>と<span class="accent-green">教育</span>のいま</h1>
+    <p class="hero-sub">作れることと、安全に使えることは別問題です。</p>
+    <p class="hero-note">論文2本（実務編・論考編）の要点を、PDF を読まなくても分かるようにまとめたビジュアルサイト。教育関係者向け。</p>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+</header>
+
+<main>
+
+<!-- ① 現状セクション -->
+<div class="section-wrap bg-white">
+  <div class="section">
+    <div class="section-label fade-in">CURRENT STATE</div>
+    <h2 class="section-title fade-in">何が起きているのか</h2>
+    <p class="section-desc fade-in">生成AIは教育現場を急速に変えつつある。その速さと規模を数字で見てみよう。</p>
+
+    <div class="state-grid">
+      <div class="state-card fade-in">
+        <span class="state-card-icon">🚀</span>
+        <h3>爆発的な普及速度</h3>
+        <p>ChatGPTは登場から<strong>5日で100万ユーザー</strong>、わずか2ヶ月で<strong>1億ユーザー</strong>を獲得。これはNetflixが同じ規模に達するまでに要した時間の<strong>250分の1</strong>の速度。</p>
+        <span class="stat">生成AI市場：2022年比 約8.5倍（2026年 約1,035億ドル）</span>
+      </div>
+      <div class="state-card fade-in">
+        <span class="state-card-icon">💻</span>
+        <h3>Vibe Coding の台頭</h3>
+        <p>コードを書かずにAIへ意図を伝えるだけでアプリが作れる「Vibe Coding」が2025年に登場。関連検索は<strong>6,700%増</strong>。教材開発も「熟練者の専売特許」ではなくなりつつある。</p>
+        <span class="stat">コーディングエージェント市場：2024年→2025年で5倍に急拡大</span>
+      </div>
+      <div class="state-card fade-in">
+        <span class="state-card-icon">📋</span>
+        <h3>制度も追いついてきた</h3>
+        <p>GIGAスクール整備で<strong>1人1端末</strong>が全国に普及。文科省ガイドラインVer.2.0（2024年12月）で、議論の焦点は「使ってよいか」から<strong>「どう安全に使うか」</strong>へ転換した。</p>
+        <span class="stat">教材開発の「民主化」：一部の熟練者から多くの教員へ</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ② 課題セクション -->
+<div class="section-wrap bg-paper">
+  <div class="section">
+    <div class="section-label fade-in">RISKS &amp; CHALLENGES</div>
+    <h2 class="section-title fade-in">見えにくいリスク</h2>
+    <p class="section-desc fade-in">「作れる」ことと「安全に運用できる」ことは別の問題。現場で見落とされがちな6つのリスクを整理した。</p>
+
+    <div class="risk-grid">
+      <div class="risk-card fade-in">
+        <div class="risk-icon">⚠️</div>
+        <div class="risk-body">
+          <div class="risk-badge">Veracode 2025年報告</div>
+          <h3>コードの45%に脆弱性</h3>
+          <p>AIが生成するコードの45%に、既知のセキュリティ問題（OWASP Top 10）が含まれる。「動くコード」＝「安全なコード」ではない。「Vibe Coding Hangover」と呼ばれる状況が現実に起きている。</p>
+        </div>
+      </div>
+      <div class="risk-card fade-in">
+        <div class="risk-icon">🔑</div>
+        <div class="risk-body">
+          <div class="risk-badge">よくあるミス</div>
+          <h3>APIキー漏洩</h3>
+          <p>秘密情報（APIキー等）をコードに直接書いてGitHubで公開してしまうケース。第三者に不正利用され、意図しない課金や情報流出につながる。</p>
+        </div>
+      </div>
+      <div class="risk-card fade-in">
+        <div class="risk-icon">👤</div>
+        <div class="risk-body">
+          <div class="risk-badge">設計の抜け</div>
+          <h3>個人情報の設計漏れ</h3>
+          <p>「保存できる」ことと「どこに・いつまで・誰の権限で」を設計することは別。保存期間・自動削除・アクセス権限を設計段階で決めなければ、個人情報が無期限に蓄積されるリスクがある。</p>
+        </div>
+      </div>
+      <div class="risk-card fade-in">
+        <div class="risk-icon">🌐</div>
+        <div class="risk-body">
+          <div class="risk-badge">アクセス制御</div>
+          <h3>アクセス制御の甘さ</h3>
+          <p>URLを知っていれば誰でもアクセス・編集できる状態になるリスク。ブラウザ側だけでの認証は容易に迂回できる。サーバー側での認証・認可の設計が必要。</p>
+        </div>
+      </div>
+      <div class="risk-card fade-in">
+        <div class="risk-icon">📋</div>
+        <div class="risk-body">
+          <div class="risk-badge">利用規約</div>
+          <h3>年齢制限・規約の見落とし</h3>
+          <p>ChatGPT 13歳以上、Claude 18歳以上など、サービスによって年齢制限が異なる。また「直接利用」と「API経由で自作教材に組み込む」は別のルールが適用される。</p>
+        </div>
+      </div>
+      <div class="risk-card fade-in">
+        <div class="risk-icon">🔄</div>
+        <div class="risk-body">
+          <div class="risk-badge">依存性</div>
+          <h3>依存しにくい設計の欠如</h3>
+          <p>一度使えるようになると、完全にやめることは困難になる。辞めやすい・切り替えやすい・段階的に縮小できる設計を最初から考えることが重要。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ③ これからやるべきことセクション -->
+<div class="section-wrap bg-white">
+  <div class="section">
+    <div class="section-label green fade-in">ACTION CHECKLIST</div>
+    <h2 class="section-title fade-in">安全に使うための9つのポイント</h2>
+    <p class="section-desc fade-in">生成AIを教育現場で活用する前・活用中に確認すべき実践的なチェックリスト。</p>
+
+    <div class="checklist">
+      <div class="check-card fade-in">
+        <div class="check-num">
+          <span class="check-num-badge">1</span>
+          <span class="check-num-mark">✓</span>
+        </div>
+        <h3>秘密情報はコードに書かない</h3>
+        <p>APIキーや認証情報は、シークレット管理機能（環境変数・Vault等）に置く。GitHubなど公開リポジトリへの直書きは厳禁。</p>
+      </div>
+      <div class="check-card fade-in">
+        <div class="check-num">
+          <span class="check-num-badge">2</span>
+          <span class="check-num-mark">✓</span>
+        </div>
+        <h3>公開範囲を最小限に</h3>
+        <p>ログイン・合言葉・PINなどで利用者を限定する。全員に公開する前提ではなく、必要な人だけに届ける設計を。</p>
+      </div>
+      <div class="check-card fade-in">
+        <div class="check-num">
+          <span class="check-num-badge">3</span>
+          <span class="check-num-mark">✓</span>
+        </div>
+        <h3>認証はサーバー側で担保する</h3>
+        <p>ブラウザ（フロントエンド）だけでの認証は容易に迂回できる。アクセス制御はサーバー側で実装・確認する。</p>
+      </div>
+      <div class="check-card fade-in">
+        <div class="check-num">
+          <span class="check-num-badge">4</span>
+          <span class="check-num-mark">✓</span>
+        </div>
+        <h3>個人情報は最小限に</h3>
+        <p>保存期間・自動削除のタイミングを設計段階で決める。「取れるから取る」ではなく、目的に必要な最小限に絞る。</p>
+      </div>
+      <div class="check-card fade-in">
+        <div class="check-num">
+          <span class="check-num-badge">5</span>
+          <span class="check-num-mark">✓</span>
+        </div>
+        <h3>学校が認めたAPIを使う</h3>
+        <p>Azure OpenAIなど、データが学習に使われない設計のサービスを選ぶ。学校・自治体が承認しているかを事前に確認。</p>
+      </div>
+      <div class="check-card fade-in">
+        <div class="check-num">
+          <span class="check-num-badge">6</span>
+          <span class="check-num-mark">✓</span>
+        </div>
+        <h3>利用規約・年齢制限・保護者同意を確認</h3>
+        <p>サービスごとに年齢制限が異なる。API経由での利用は「直接利用」とは別のルールが適用されることが多い。三次利用ライセンスも要確認。</p>
+      </div>
+      <div class="check-card fade-in">
+        <div class="check-num">
+          <span class="check-num-badge">7</span>
+          <span class="check-num-mark">✓</span>
+        </div>
+        <h3>事前学習を実施する</h3>
+        <p>生成AIの仕組み・メリット・デメリット・著作権・人権について、導入前に授業で扱う。使う前に「知る」プロセスを省かない。</p>
+      </div>
+      <div class="check-card fade-in">
+        <div class="check-num">
+          <span class="check-num-badge">8</span>
+          <span class="check-num-mark">✓</span>
+        </div>
+        <h3>保護者への事前説明・同意</h3>
+        <p>必要に応じて、保護者へ生成AIの利用目的・データの扱い・リスクを説明し、同意を得る。事後報告ではなく事前が原則。</p>
+      </div>
+      <div class="check-card fade-in">
+        <div class="check-num">
+          <span class="check-num-badge">9</span>
+          <span class="check-num-mark">✓</span>
+        </div>
+        <h3>セキュリティポリシーに沿っているか確認</h3>
+        <p>自治体・学校のセキュリティポリシーに合致しているかを必ず確認する。個人の判断だけで進めず、管理職・情報担当者への相談を。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ④ 付録ダウンロードセクション -->
+<div class="section-wrap bg-paper">
+  <div class="section">
+    <div class="section-label fade-in">RESOURCES</div>
+    <h2 class="section-title fade-in">配布資料</h2>
+    <p class="section-desc fade-in">以下の様式をダウンロードして授業・校内での生成AI活用にお役立てください。</p>
+
+    <div class="dl-grid">
+      <div class="dl-card fade-in">
+        <div class="dl-card-label">付録 1</div>
+        <h3>利用申請・承認シート</h3>
+        <p>生成AIを活用した教材の利用申請・管理職の承認記録に使える様式。導入前の手続きを標準化できます。</p>
+        <a class="dl-btn" href="#" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          ダウンロード（準備中）
+        </a>
+      </div>
+      <div class="dl-card fade-in">
+        <div class="dl-card-label">付録 2</div>
+        <h3>導入前セルフチェックシート</h3>
+        <p>生成AI教材を導入する前に、セキュリティ・利用規約・個人情報設計を自己点検するためのチェックリスト。</p>
+        <a class="dl-btn" href="#" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          ダウンロード（準備中）
+        </a>
+      </div>
+      <div class="dl-card fade-in">
+        <div class="dl-card-label">付録 3</div>
+        <h3>保護者向け説明・同意書</h3>
+        <p>生成AIを使った教材を授業で利用することを保護者へ説明し、同意を得るための書面テンプレート。</p>
+        <a class="dl-btn" href="#" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          ダウンロード（準備中）
+        </a>
+      </div>
+      <div class="dl-card fade-in">
+        <div class="dl-card-label">付録 4</div>
+        <h3>教材の説明カード</h3>
+        <p>生成AIを活用して作成した教材であることを明示するためのカード。使用したAI・データの扱い・注意事項を記載できます。</p>
+        <a class="dl-btn" href="#" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          ダウンロード（準備中）
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  <strong>Open EduTech Lab</strong>
+  <p style="margin:0 0 4px;">&copy; Open EduTech Lab &nbsp;|&nbsp; 生成AIによる教材開発の民主化とその課題</p>
+  <div class="footer-links">
+    <a href="../index.html">ポータルへ戻る</a>
+  </div>
+</footer>
+
+<script>
+// スクロールフェードイン
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if(entry.isIntersecting){
+      // 同じ親を持つ要素はスタガーさせる
+      const siblings = Array.from(entry.target.parentElement.querySelectorAll('.fade-in'));
+      const idx = siblings.indexOf(entry.target);
+      const delay = Math.min(idx * 80, 320);
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, delay);
+      observer.unobserve(entry.target);
+    }
+  });
+}, {
+  threshold: 0.12,
+  rootMargin: '0px 0px -40px 0px'
+});
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
